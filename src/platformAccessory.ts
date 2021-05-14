@@ -96,18 +96,6 @@ export class LgAirConditionerPlatformAccessory {
       const snapshot = device.result.snapshot
       this.platform.log.debug('device response.result.snapshot', snapshot)
 
-      if (!snapshot.online) {
-        this.platform.log.info(
-          'Removing offline device from HomeKit. If you need this device again, please restart Homebridge.',
-        )
-        clearInterval(this.updateCharacteristicsInterval)
-        clearInterval(this.renewMonitoringInterval)
-        this.platform.api.unregisterPlatformAccessories(
-          PLUGIN_NAME,
-          PLATFORM_NAME,
-          [this.accessory],
-        )
-      }
 
       for (const characteristic of this.characteristics) {
         try {
